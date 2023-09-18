@@ -6,7 +6,10 @@ import 'package:quiz/pages/article/widgets/article_title.dart';
 import 'package:quiz/widgets/background_custom.dart';
 
 class ArticlePage extends StatelessWidget {
-  const ArticlePage({super.key});
+  int idTopic;
+  String name;
+  ArticlePage({super.key,required this.idTopic,required this.name});
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,13 @@ class ArticlePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const ArticleTitle(),
+                       ArticleTitle(name:name),
                       SizedBox(height: getHeight(context)*0.04),
                       const ArticleLoading(),
                       SizedBox(height: getHeight(context)*0.04),
-                      const ArticleBoxContent(),
+                      ArticleBoxContent(
+                        idTopic:idTopic,
+                      ),
                     ],
                   ),
                 ),
