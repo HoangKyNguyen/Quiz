@@ -23,8 +23,6 @@ Future<void> showModal(context, String valueInput, Question data)=> showModalBot
            children: [
              Expanded(
                  child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      (valueInput.isEmpty)
                          ? nullAnswer(valueInput)
@@ -54,83 +52,77 @@ RichText nullAnswer(String valueInput){
                     fontSize: 50,
                     color: Colors.red
                 )
-            )
+            ),
           ]
       )
   );
 }
 
-RichText correctAnswer(String valueInput){
-  return RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-        ),
-        children: [
-          const TextSpan(text: "Your result"),
-          const WidgetSpan(child: SizedBox(width: 10)),
-          TextSpan(
-            text: valueInput,
-            style: const TextStyle(
-              color: Colors.green,
-              fontSize: 22,
-            )
-          ),
-          const WidgetSpan(child: SizedBox(width: 10)),
-          const TextSpan(text: 'is Corrected'),
-          const WidgetSpan(child: SizedBox(width: 10)),
-          const TextSpan(
-              text: ' Success fully',
-              style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.red
-              )
+Column correctAnswer(String valueInput){
+  return Column(
+    children: [
+      RichText(
+          text: TextSpan(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+              children: [
+                const TextSpan(text: "Your answer"),
+                const WidgetSpan(child: SizedBox(width: 10)),
+                TextSpan(
+                    text: valueInput,
+                    style: const TextStyle(
+                      color: Colors.green,
+                      fontSize: 22,
+                    )
+                ),
+                const WidgetSpan(child: SizedBox(width: 10)),
+                const TextSpan(text:'is absolutely correct'),
+                const WidgetSpan(child: SizedBox(width: 10)),
+              ]
           )
-        ]
-      )
+      ),
+      Image.network('https://th.bing.com/th?id=OIP.Nei_T1FVu2JF1f6104vl2gAAAA&w=246&h=253&c=8&rs=1&qlt=90&o=6&dpr=2&pid=3.1&rm=2')
+    ]
   );
 }
 
 Center errorAnswer(String valueInput, answer){
   return Center(
-    child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-            ),
-            children: [
-              const TextSpan(text: "Your result"),
-              const WidgetSpan(child: SizedBox(width: 10)),
-              TextSpan(
-                  text: valueInput,
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontSize: 22,
-                  )
+    child: Column(
+      children:[RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
               ),
-              const WidgetSpan(child: SizedBox(width: 10)),
-              const TextSpan(text: 'Incorrect ! The correct answer: '),
-              const WidgetSpan(child: SizedBox(width: 10)),
-              TextSpan(
-                text: answer.toString(),
-                style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 22
-                )
-              ),
-              const WidgetSpan(child: SizedBox(width: 10)),
-              const TextSpan(
-                text: ' Failure Answer',
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.red
-                )
-              )
-            ]
-        )
+              children: [
+                const TextSpan(text: "Your result"),
+                const WidgetSpan(child: SizedBox(width: 10)),
+                TextSpan(
+                    text: valueInput,
+                    style: const TextStyle(
+                      color: Colors.green,
+                      fontSize: 22,
+                    )
+                ),
+                const WidgetSpan(child: SizedBox(width: 10)),
+                const TextSpan(text: 'Incorrect ! The correct answer: '),
+                const WidgetSpan(child: SizedBox(width: 10)),
+                TextSpan(
+                    text: answer.toString(),
+                    style: const TextStyle(
+                        color: Colors.green,
+                        fontSize: 22
+                    )
+                ),
+              ]
+          )
+      ),
+        Image.network('https://media.tenor.com/Fkeix5_Cv8UAAAAC/complete-failure-failure.gif')
+      ] 
     ),
   );
 }

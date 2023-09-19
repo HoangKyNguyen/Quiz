@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quiz/apps/routers/router_name.dart';
@@ -30,16 +29,12 @@ class _HomePageState extends State<HomePage> {
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: paddingCustom(context)),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const HomeTitle(),
-                  const HomeDropdown(),
-                  SizedBox(height:getHeight(context) * 0.02),
-                  ButtonCustom(
-                      onTap: (){context.goNamed(RoutersName.categoryName);},
-                      title:'Get Start')
+                  HomeTitle(),
+                  HomeDropdown(),
                 ],
               ),
             ),

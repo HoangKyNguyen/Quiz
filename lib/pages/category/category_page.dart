@@ -7,16 +7,24 @@ import 'package:quiz/models/category_model.dart';
 import 'package:quiz/providers/category_provider.dart';
 import 'package:quiz/widgets/background_custom.dart';
 
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({Key? key}) : super(key: key);
 
+  @override
+  _CategoryPageState createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_circle_left,
-          color: Colors.white),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 18,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -29,53 +37,59 @@ class CategoryPage extends StatelessWidget {
         children: [
           const BackgroundCustom(),
           SafeArea(
-            child: FutureBuilder(
-              future: context.read<CategoryProvider>().getListTopic(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Category> data = snapshot.data as List<Category>;
-                  return GridView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: paddingCustom(context)),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      childAspectRatio: 2/1,
-                    ),
-                    itemCount: data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: (){
-                          context.goNamed(RoutersName.articleName,extra: {
-                            'id': data[index].id,
-                            'name':data[index].name
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.primaries[index],
-                          ),
+              child: FutureBuilder(
+                future: context.read<CategoryProvider>().getListTopic(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Category> data = snapshot.data as List<Category>;
+                    return GridView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: paddingCustom(context)),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        childAspectRatio: 2/1,
+                      ),
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: (){
+                            context.goNamed(RoutersName.articleName,extra: {
+                              'id': data[index].id,
+                              'name':data[index].name
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.primaries[index],
+                            ),
 
-                          child: Align(
-                            child: Text(data[index].name),
+                            child: Align(
+                              child: Text(data[index].name),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }else{
-                  return Container(
-                    child: const Center(
-                      child: Text("let's choice a language"),
-                    ),
-                  );
-                }
-              },
-            )
+                        );
+                      },
+                    );
+                  }else{
+                    return const Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("Loading"),
+                            CircularProgressIndicator()
+                          ]
+                      ),
+                    );
+                  }
+                },
+              )
           )
         ],
       ),
     );
   }
 }
+

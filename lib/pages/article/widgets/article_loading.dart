@@ -9,69 +9,75 @@ class ArticleLoading extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Consumer<QuestionProvider>(
-        builder: (context,value,child) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              width: getWith(context),
-              height: getHeight(context)*0.05,
-              decoration: BoxDecoration(
-                  borderRadius:  BorderRadius.circular(20),
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.white,
-                  )
-              ),
-              child: Stack(
-                children: [
-                  AnimatedContainer(
-                    width: getWith(context)*value.currentData/value.listData.length,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color(0xff44A3AE),
-                            Color(0xff33FBC9),
-                          ],
-                        )
-                    ), duration: const Duration(milliseconds: 200),
-                  ),
-                  const Positioned.fill(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Loading..."),
-                            Icon(
-                              Icons.timelapse,
-                              color: Colors.white,
-                              size: 30,
-                            )
-                          ],
-                        ),
-                      )
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: getHeight(context)*0.04,
-            ),
-            RichText(
-                text: TextSpan(
+        builder: (context,value,child) {
+          double progress = value.currentData / value.listData.length;
+          double containerWidth = progress * MediaQuery.of(context).size.width;
+
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                clipBehavior: Clip.hardEdge,
+                width: getWith(context),
+                height: getHeight(context)*0.05,
+                decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(20),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.white,
+                    )
+                ),
+                child: Stack(
                   children: [
-                    const TextSpan(text: 'Question'),
-                    TextSpan(text: value.currentData.toString()),
-                    const TextSpan(text: '/'),
-                    TextSpan(text: value.listData.length.toString()),
+                    AnimatedContainer(
+                      width: containerWidth.isFinite ? containerWidth:0.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xff44A3AE),
+                              Color(0xff33FBC9),
+                            ],
+                          )
+                      ), duration: const Duration(milliseconds: 200),
+                    ),
+                    const Positioned.fill(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text("Progressing.."),
+                              Icon(
+                                Icons.timelapse,
+                                color: Colors.white,
+                                size: 30,
+                              )
+                            ],
+                          ),
+                        )
+                    )
                   ],
-                )
-            )
-          ],
-        )
+                ),
+              ),
+              SizedBox(
+                height: getHeight(context)*0.04,
+              ),
+              RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(text: 'Question'),
+                      TextSpan(text: value.currentData.toString()),
+                      const TextSpan(text: '/'),
+                      TextSpan(text: value.listData.length.toString()),
+                    ],
+                  )
+              )
+            ],
+          );
+        }
     );
   }
 

@@ -1,15 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-
 class Question{
   int id;
-  String? title;
+  String? title ;
   String question;
   String answer;
   Question({
         required this.id,
-        this.title =" What is the result of this code under ?",
+        this.title = " What is the result of this code under ?",
         required this.question,
         required this.answer,
   });
@@ -18,7 +16,7 @@ class Question{
      return<String,dynamic>{
        'id':id,
        'title':title,
-       'question':question,
+       'question':question ,
        'answer':answer
      };
   }

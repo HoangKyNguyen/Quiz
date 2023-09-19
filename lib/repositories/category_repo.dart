@@ -13,7 +13,7 @@ class CategoryRepository{
     return categories;
   }
   Future<List<Category>> getTopic(int id) async{
-    const url ='https://apiforlearning.zendvn.com/api/v2/category_programming_quiz/70/topics';
+    final url ='https://apiforlearning.zendvn.com/api/v2/category_programming_quiz/$id/topics';
     final response = await http.get(Uri.parse(url));
     List data = jsonDecode(response.body)['data'];
     List<Category> categories = List<Category>.from(

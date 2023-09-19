@@ -17,7 +17,7 @@ class HomeTitle extends StatelessWidget{
           ),
         ),
         SizedBox(height: getHeight(context) * 0.04),
-        const Text('go to programing test'),
+        const Text('Go to programing test'),
         SizedBox(height: getHeight(context) * 0.04),
       ],
     );

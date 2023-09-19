@@ -31,6 +31,13 @@ class _ArticleBoxContentState extends State<ArticleBoxContent>{
           future: context.read<QuestionProvider>().getQuestionList(widget.idTopic),
           builder: (context,snapshot){
             if(snapshot.hasData){
+               if(snapshot.data!.isEmpty){
+                 return const Center(
+                     child:
+                           Text("No data Available"),
+
+                 );
+               }
               List<Question> data = snapshot.data as List<Question>;
               return ExpandablePageView.builder(
                 onPageChanged: (value){
@@ -116,7 +123,13 @@ class _ArticleBoxContentState extends State<ArticleBoxContent>{
               );
             }else{
                 return const Center(
-                  child: Text("No data"),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children:[
+                    Text("Data Loading"),
+                    CircularProgressIndicator()
+                  ] ),
                 );
             }
           },
